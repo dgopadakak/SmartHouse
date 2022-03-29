@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/ASProj/SmartHouse/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/ASProj/SmartHouse/app/src/main/res/drawable/circle.xml" value="0.121" />
+        <entry key="..\:/ASProj/SmartHouse/app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>
   </component>
