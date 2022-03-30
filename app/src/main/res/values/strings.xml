@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SmartHouse</string>
     <string name="refresh_button">Обновить</string>
+    <string name="pump_switch">Насос</string>
+    <string name="to_house">В дом</string>
+    <string name="to_street">На улицу</string>
 </resources>
