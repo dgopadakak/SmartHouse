@@ -7,6 +7,11 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.Switch;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +29,12 @@ public class MainActivity extends AppCompatActivity
     private UUID myUUID;
     final String UUID_STRING_WELL_KNOWN_SPP = "00001101-0000-1000-8000-00805F9B34FB";
     private StringBuilder sb = new StringBuilder();
-    public TextView d10, d11, d12, d13;
+
+    private ProgressBar progressBar;
+    private TextView textViewProgress;
+    private RadioButton radioButtonHome;
+    private RadioButton radioButtonStreet;
+    private Switch switchPump;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,10 +42,35 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        d10 = (TextView)findViewById(R.id.d10);
-        d11 = (TextView)findViewById(R.id.d11);
-        d12 = (TextView)findViewById(R.id.d12);
-        d13 = (TextView)findViewById(R.id.d13);
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+        tabHost.setup();
+
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("tag1");
+        tabSpec.setContent(R.id.linearLayout);
+        tabSpec.setIndicator("Бак");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("tag2");
+        tabSpec.setContent(R.id.linearLayout2);
+        tabSpec.setIndicator("Скоро");
+        tabHost.addTab(tabSpec);
+
+        tabHost.setCurrentTab(0);
+
+        progressBar = findViewById(R.id.progress_bar);
+        textViewProgress = findViewById(R.id.text_view_progress);
+        radioButtonHome = findViewById(R.id.radioButtonModeHome);
+        radioButtonStreet = findViewById(R.id.radioButtonModeStreet);
+
+        radioButtonHome.setOnClickListener(radioButtonClickListener);
+        radioButtonStreet.setOnClickListener(radioButtonClickListener);
+
+        switchPump = findViewById(R.id.switchPump);
+
+        if (switchPump != null)
+        {
+            switchPump.setOnCheckedChangeListener(this::onCheckedChanged);
+        }
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -168,37 +203,24 @@ public class MainActivity extends AppCompatActivity
                             {
                                 switch (sbprint)
                                 {
-                                    case "D10 ON":
-                                        d10.setText(sbprint);
+                                    case "HOME":
+                                        radioButtonHome.setChecked(true);
+                                        radioButtonStreet.setChecked(false);
+                                        switchPump.setVisibility(View.INVISIBLE);
                                         break;
 
-                                    case "D10 OFF":
-                                        d10.setText(sbprint);
+                                    case "STREET":
+                                        radioButtonHome.setChecked(false);
+                                        radioButtonStreet.setChecked(true);
+                                        switchPump.setVisibility(View.VISIBLE);
                                         break;
 
-                                    case "D11 ON":
-                                        d11.setText(sbprint);
+                                    case "PON":
+                                        switchPump.setChecked(true);
                                         break;
 
-                                    case "D11 OFF":
-                                        d11.setText(sbprint);
-                                        break;
-
-                                    case "D12 ON":
-                                        d12.setText(sbprint);
-                                        break;
-
-                                    case "D12 OFF":
-                                        d12.setText(sbprint);
-                                        break;
-
-                                    case "D13 ON":
-                                        d13.setText(sbprint);
-                                        break;
-
-                                    case "D13 OFF":
-                                        d13.setText(sbprint);
-                                        break;
+                                    case "POFF":
+                                        switchPump.setChecked(false);
 
                                     default:
                                         break;
@@ -230,83 +252,56 @@ public class MainActivity extends AppCompatActivity
     }
 
 /////////////////// Нажатие кнопок /////////////////////
-/////////////////////////D10////////////////////////////
 
-    public void onClickBut1(View v)
+    View.OnClickListener radioButtonClickListener = new View.OnClickListener()
     {
-        if(myThreadConnected!=null)
+        @Override
+        public void onClick(View v)
         {
-            byte[] bytesToSend = "a".getBytes();
-            myThreadConnected.write(bytesToSend );
+            RadioButton rb = (RadioButton)v;
+            switch (rb.getId())
+            {
+                case R.id.radioButtonModeHome:
+                    if (myThreadConnected != null)
+                    {
+                        byte[] bytesToSend = "h".getBytes();
+                        myThreadConnected.write(bytesToSend);
+                    }
+                    switchPump.setVisibility(View.INVISIBLE);
+                    break;
+
+                case R.id.radioButtonModeStreet:
+                    if (myThreadConnected != null)
+                    {
+                        byte[] bytesToSend = "s".getBytes();
+                        myThreadConnected.write(bytesToSend);
+                    }
+                    switchPump.setVisibility(View.VISIBLE);
+                    break;
+
+                default:
+                    break;
+            }
         }
-    }
+    };
 
-    public void onClickBut2(View v)
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
-        if(myThreadConnected!=null)
+        if (isChecked)
         {
-            byte[] bytesToSend = "A".getBytes();
-            myThreadConnected.write(bytesToSend );
+            if (myThreadConnected != null)
+            {
+                byte[] bytesToSend = "n".getBytes();
+                myThreadConnected.write(bytesToSend);
+            }
         }
-    }
-
-////////////////////////D11////////////////////////////
-
-    public void onClickBut3(View v)
-    {
-        if(myThreadConnected!=null)
+        if (!isChecked)
         {
-            byte[] bytesToSend = "b".getBytes();
-            myThreadConnected.write(bytesToSend );
-        }
-    }
-
-    public void onClickBut4(View v)
-    {
-        if(myThreadConnected!=null)
-        {
-            byte[] bytesToSend = "B".getBytes();
-            myThreadConnected.write(bytesToSend );
-        }
-    }
-
-//////////////////////D12//////////////////////////
-
-    public void onClickBut5(View v)
-    {
-        if(myThreadConnected!=null)
-        {
-            byte[] bytesToSend = "c".getBytes();
-            myThreadConnected.write(bytesToSend );
-        }
-    }
-
-    public void onClickBut6(View v)
-    {
-        if(myThreadConnected!=null)
-        {
-            byte[] bytesToSend = "C".getBytes();
-            myThreadConnected.write(bytesToSend );
-        }
-    }
-
-//////////////////////D13//////////////////////////
-
-    public void onClickBut7(View v)
-    {
-        if(myThreadConnected!=null)
-        {
-            byte[] bytesToSend = "d".getBytes();
-            myThreadConnected.write(bytesToSend );
-        }
-    }
-
-    public void onClickBut8(View v)
-    {
-        if(myThreadConnected!=null)
-        {
-            byte[] bytesToSend = "D".getBytes();
-            myThreadConnected.write(bytesToSend );
+            if (myThreadConnected != null)
+            {
+                byte[] bytesToSend = "f".getBytes();
+                myThreadConnected.write(bytesToSend);
+            }
         }
     }
 
