@@ -201,29 +201,52 @@ public class MainActivity extends AppCompatActivity
                             @Override
                             public void run()
                             {
-                                switch (sbprint)
+                                if (sbprint.charAt(0) == 'X')
                                 {
-                                    case "HOME":
-                                        radioButtonHome.setChecked(true);
-                                        radioButtonStreet.setChecked(false);
-                                        switchPump.setVisibility(View.INVISIBLE);
-                                        break;
+                                    String percentString = sbprint.substring(1);
+                                    try
+                                    {
+                                        int percentInt = Integer.parseInt(percentString);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Ошибка распознания процентов!", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                    percentString = percentString + "%";
+                                    textViewProgress.setText(percentString);
+                                }
+                                else {
+                                    switch (sbprint)
+                                    {
+                                        case "HOME":
+                                            if (!radioButtonHome.isChecked())
+                                            {
+                                                radioButtonHome.setChecked(true);
+                                                radioButtonStreet.setChecked(false);
+                                                switchPump.setVisibility(View.INVISIBLE);
+                                            }
+                                            break;
 
-                                    case "STREET":
-                                        radioButtonHome.setChecked(false);
-                                        radioButtonStreet.setChecked(true);
-                                        switchPump.setVisibility(View.VISIBLE);
-                                        break;
+                                        case "STREET":
+                                            if (!radioButtonStreet.isChecked())
+                                            {
+                                                radioButtonHome.setChecked(false);
+                                                radioButtonStreet.setChecked(true);
+                                                switchPump.setVisibility(View.VISIBLE);
+                                            }
+                                            break;
 
-                                    case "PON":
-                                        switchPump.setChecked(true);
-                                        break;
+                                        case "PON":
+                                            switchPump.setChecked(true);
+                                            break;
 
-                                    case "POFF":
-                                        switchPump.setChecked(false);
+                                        case "POFF":
+                                            switchPump.setChecked(false);
 
-                                    default:
-                                        break;
+                                        default:
+                                            break;
+                                    }
                                 }
                             }
                         });
