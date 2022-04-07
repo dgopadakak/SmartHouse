@@ -207,6 +207,7 @@ public class MainActivity extends AppCompatActivity
                                     try
                                     {
                                         int percentInt = Integer.parseInt(percentString);
+                                        progressBar.setProgress(percentInt);
                                     }
                                     catch (Exception e)
                                     {
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity
                                             {
                                                 radioButtonHome.setChecked(true);
                                                 radioButtonStreet.setChecked(false);
-                                                switchPump.setVisibility(View.INVISIBLE);
+                                                switchPump.setClickable(false);
                                             }
                                             break;
 
@@ -233,7 +234,7 @@ public class MainActivity extends AppCompatActivity
                                             {
                                                 radioButtonHome.setChecked(false);
                                                 radioButtonStreet.setChecked(true);
-                                                switchPump.setVisibility(View.VISIBLE);
+                                                switchPump.setClickable(true);
                                             }
                                             break;
 
@@ -290,7 +291,7 @@ public class MainActivity extends AppCompatActivity
                         byte[] bytesToSend = "h".getBytes();    // home mode
                         myThreadConnected.write(bytesToSend);
                     }
-                    switchPump.setVisibility(View.INVISIBLE);
+                    switchPump.setClickable(false);
                     break;
 
                 case R.id.radioButtonModeStreet:
@@ -299,7 +300,7 @@ public class MainActivity extends AppCompatActivity
                         byte[] bytesToSend = "s".getBytes();    // street mode
                         myThreadConnected.write(bytesToSend);
                     }
-                    switchPump.setVisibility(View.VISIBLE);
+                    switchPump.setClickable(true);
                     break;
 
                 default:

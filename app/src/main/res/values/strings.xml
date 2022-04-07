@@ -4,4 +4,5 @@
     <string name="pump_switch">Насос</string>
     <string name="to_house">В дом</string>
     <string name="to_street">На улицу</string>
+    <string name="soon">Скоро</string>
 </resources>
