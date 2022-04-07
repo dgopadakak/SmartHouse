@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity
                 case R.id.radioButtonModeHome:
                     if (myThreadConnected != null)
                     {
-                        byte[] bytesToSend = "h".getBytes();
+                        byte[] bytesToSend = "h".getBytes();    // home mode
                         myThreadConnected.write(bytesToSend);
                     }
                     switchPump.setVisibility(View.INVISIBLE);
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity
                 case R.id.radioButtonModeStreet:
                     if (myThreadConnected != null)
                     {
-                        byte[] bytesToSend = "s".getBytes();
+                        byte[] bytesToSend = "s".getBytes();    // street mode
                         myThreadConnected.write(bytesToSend);
                     }
                     switchPump.setVisibility(View.VISIBLE);
@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity
         {
             if (myThreadConnected != null)
             {
-                byte[] bytesToSend = "n".getBytes();
+                byte[] bytesToSend = "n".getBytes();    // pump on
                 myThreadConnected.write(bytesToSend);
             }
         }
@@ -322,7 +322,7 @@ public class MainActivity extends AppCompatActivity
         {
             if (myThreadConnected != null)
             {
-                byte[] bytesToSend = "f".getBytes();
+                byte[] bytesToSend = "f".getBytes();    // pump off
                 myThreadConnected.write(bytesToSend);
             }
         }
