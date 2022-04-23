@@ -68,26 +68,23 @@
                         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
                     <TextView
-                        android:id="@+id/textViewMode"
+                        android:id="@+id/textViewPumpTimeTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
-                        android:text="@string/soon"
                         app:layout_constraintStart_toEndOf="@+id/progress_bar"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textViewPump"
+                        android:id="@+id/textViewPumpTimeNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
-                        android:text="@string/soon"
                         app:layout_constraintStart_toEndOf="@+id/progress_bar"
-                        app:layout_constraintTop_toBottomOf="@+id/textViewMode" />
+                        app:layout_constraintTop_toBottomOf="@+id/textViewPumpTimeTitle" />
 
                     <Switch
                         android:id="@+id/switchPump"

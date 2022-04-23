@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity
     private RadioButton radioButtonHome;
     private RadioButton radioButtonStreet;
     private Switch switchPump;
+    private TextView textViewPumpTimeTitle;
+    private TextView textViewPumpTimeNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,6 +63,10 @@ public class MainActivity extends AppCompatActivity
         textViewProgress = findViewById(R.id.text_view_progress);
         radioButtonHome = findViewById(R.id.radioButtonModeHome);
         radioButtonStreet = findViewById(R.id.radioButtonModeStreet);
+        textViewPumpTimeTitle = findViewById(R.id.textViewPumpTimeTitle);
+        textViewPumpTimeNum = findViewById(R.id.textViewPumpTimeNum);
+        textViewPumpTimeTitle.setText("Насос работал:");
+        textViewPumpTimeNum.setText("0 минут.");
 
         radioButtonHome.setOnClickListener(radioButtonClickListener);
         radioButtonStreet.setOnClickListener(radioButtonClickListener);
@@ -217,7 +223,14 @@ public class MainActivity extends AppCompatActivity
                                     percentString = percentString + "%";
                                     textViewProgress.setText(percentString);
                                 }
-                                else {
+                                else if (sbprint.charAt(0) == 'T')
+                                {
+                                    String pumpTimeString = sbprint.substring(1);
+                                    pumpTimeString = pumpTimeString + " минут.";
+                                    textViewPumpTimeNum.setText(pumpTimeString);
+                                }
+                                else
+                                {
                                     switch (sbprint)
                                     {
                                         case "HOME":
@@ -240,10 +253,12 @@ public class MainActivity extends AppCompatActivity
 
                                         case "PON":
                                             switchPump.setChecked(true);
+                                            textViewPumpTimeTitle.setText("Насос работает:");
                                             break;
 
                                         case "POFF":
                                             switchPump.setChecked(false);
+                                            textViewPumpTimeTitle.setText("Насос работал:");
 
                                         default:
                                             break;
