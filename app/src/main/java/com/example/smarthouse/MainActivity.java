@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
 
         tabSpec = tabHost.newTabSpec("tag2");
         tabSpec.setContent(R.id.linearLayout2);
-        tabSpec.setIndicator("Скоро");
+        tabSpec.setIndicator("Птичник");
         tabHost.addTab(tabSpec);
 
         tabHost.setCurrentTab(0);
@@ -358,6 +358,12 @@ public class MainActivity extends AppCompatActivity
             byte[] bytesToSend = "r".getBytes();
             myThreadConnected.write(bytesToSend);
         }
+    }
+
+    public void onClickSwitchLightInCanopy(View view)
+    {
+        byte[] bytesToSend = "c".getBytes();
+        myThreadConnected.write(bytesToSend);
     }
 
     @Override

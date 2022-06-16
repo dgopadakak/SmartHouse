@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ASProj/SmartHouse/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.358" />
         <entry key="..\:/ASProj/SmartHouse/app/src/main/res/drawable/circle.xml" value="0.121" />
+        <entry key="..\:/ASProj/SmartHouse/app/src/main/res/drawable/ic_launcher_background.xml" value="0.358" />
         <entry key="..\:/ASProj/SmartHouse/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/ASProj/SmartHouse/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.358" />
       </map>
     </option>
   </component>
